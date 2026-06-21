@@ -11,7 +11,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata = {
-  title: "StartupSaarthi AI - Validate Your Startup Idea",
+  title: "startupIQ - Validate Your Startup Idea",
   description:
     "Editorial-First Intelligence trained on YC patterns and Indian institutional rigor. Enter your idea, get an actionable viability score.",
 };
