@@ -11,10 +11,10 @@ async function main() {
   // ── Users ──────────────────────────────────────────
   const [alice, bob, charlie] = await Promise.all([
     prisma.user.upsert({
-      where: { email: 'alice@startupsaarthi.dev' },
+      where: { email: 'alice@startupiq.dev' },
       update: {},
       create: {
-        email: 'alice@startupsaarthi.dev',
+        email: 'alice@startupiq.dev',
         password: defaultPassword,
         name: 'Alice Sharma',
         plan: Plan.PRO,
@@ -23,10 +23,10 @@ async function main() {
       },
     }),
     prisma.user.upsert({
-      where: { email: 'bob@startupsaarthi.dev' },
+      where: { email: 'bob@startupiq.dev' },
       update: {},
       create: {
-        email: 'bob@startupsaarthi.dev',
+        email: 'bob@startupiq.dev',
         password: defaultPassword,
         name: 'Bob Patel',
         plan: Plan.FREE,
@@ -35,10 +35,10 @@ async function main() {
       },
     }),
     prisma.user.upsert({
-      where: { email: 'charlie@startupsaarthi.dev' },
+      where: { email: 'charlie@startupiq.dev' },
       update: {},
       create: {
-        email: 'charlie@startupsaarthi.dev',
+        email: 'charlie@startupiq.dev',
         password: defaultPassword,
         name: 'Charlie Nair',
         plan: Plan.PREMIUM,

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@startupsaarthi/ui";
+import { cn } from "@startupiq/ui";
 
 export interface Phase {
   title: string;

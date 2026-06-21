@@ -4,30 +4,24 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
+import { Eye, ArrowRight } from "lucide-react";
+import { apiClient } from "@/lib/api-client";
 
 export default function SignInPage() {
   const router = useRouter();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/auth/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        },
-      );
-      if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.message || "Failed to sign in");
-      }
-      const data = await res.json();
+      const data = await apiClient("/auth/login", {
+        method: "POST",
+        data: { email, password },
+      });
       document.cookie = `token=${data.token}; path=/; max-age=604800`;
       toast.success("Welcome back!");
       router.push("/dashboard");
@@ -40,156 +34,127 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="bg-background text-on-background font-body min-h-screen flex items-center justify-center p-4 sm:p-8">
-      <main className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row bg-surface-container-lowest rounded-xl shadow-[0_4px_40px_0_rgba(27,27,29,0.06)] overflow-hidden">
-        {/* ── Left Panel: Brand & Context ────────────────────────── */}
-        <section className="lg:w-1/2 bg-[#0f172a] text-white p-10 lg:p-16 flex flex-col justify-between relative overflow-hidden">
-          <div className="absolute top-0 right-0 -mr-32 -mt-32 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl pointer-events-none" />
-          <div className="relative z-10">
-            <div className="flex items-center space-x-3 mb-16">
-              <span
-                className="material-symbols-outlined text-3xl"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                analytics
-              </span>
-              <span className="font-headline font-bold text-2xl tracking-tighter uppercase">
-                StartupSaarthi AI
-              </span>
-            </div>
-            <div className="space-y-6 max-w-md">
-              <h1 className="font-headline font-extrabold text-4xl lg:text-5xl leading-tight">
-                Editorial-First Intelligence.
-              </h1>
-              <p className="font-body text-lg text-slate-300 leading-relaxed">
-                Join 10,000+ Indian founders leveraging precision analytics and
-                narrative-driven insights to build sovereign enterprises.
-              </p>
-            </div>
+    <div className="flex flex-col w-full">
+      {/* Tabs */}
+      <div className="flex items-center space-x-6 border-b border-gray-100 pb-[1px] mb-12">
+        <div className="text-sm font-bold text-gray-900 pb-3 border-b-2 border-[#22c55e]">
+          Log In
+        </div>
+        <Link href="/sign-up" className="text-sm font-medium text-gray-400 hover:text-gray-900 pb-3 transition-colors">
+          Sign Up
+        </Link>
+      </div>
+
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-2">Welcome back</h1>
+        <p className="text-[15px] text-gray-600">
+          Enter your details to access your dashboard.
+        </p>
+      </div>
+
+      {/* Google Button */}
+      <button
+        type="button"
+        className="flex w-full items-center justify-center space-x-2 rounded-md border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none transition-colors mb-8"
+      >
+        <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+          <path
+            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+            fill="#4285F4"
+          />
+          <path
+            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+            fill="#34A853"
+          />
+          <path
+            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+            fill="#FBBC05"
+          />
+          <path
+            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+            fill="#EA4335"
+          />
+        </svg>
+        <span>Continue with Google</span>
+      </button>
+
+      {/* Divider */}
+      <div className="relative mb-8">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-200" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-white px-4 text-gray-400 font-medium tracking-widest">Email Login</span>
+        </div>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="space-y-1">
+          <label className="text-[11px] font-bold tracking-widest text-gray-500 uppercase" htmlFor="email">
+            Email Address
+          </label>
+          <input
+            id="email"
+            type="email"
+            placeholder="founder@startup.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full border-0 border-b border-gray-300 bg-transparent px-0 py-2 text-[15px] text-gray-900 placeholder:text-gray-300 focus:border-gray-900 focus:ring-0"
+            required
+            autoCapitalize="none"
+            autoComplete="email"
+            autoCorrect="off"
+          />
+        </div>
+
+        <div className="space-y-1 relative">
+          <div className="flex justify-between items-baseline">
+            <label className="text-[11px] font-bold tracking-widest text-gray-500 uppercase" htmlFor="password">
+              Password
+            </label>
+            <a href="#" className="text-xs font-semibold text-[#22c55e] hover:text-green-600 transition-colors">
+              Forgot password?
+            </a>
           </div>
-          {/* Testimonial */}
-          <div className="relative z-10 mt-20">
-            <div className="bg-white/5 border border-white/10 rounded-lg p-6 backdrop-blur-sm">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 rounded-full bg-white/20 flex-shrink-0 flex items-center justify-center font-headline font-bold text-white text-lg">
-                  AM
-                </div>
-                <div>
-                  <p className="font-body text-sm text-slate-200 italic mb-3">
-                    &ldquo;The Sovereign Analyst doesn&apos;t just show data; it
-                    writes the thesis for our next growth phase. It&apos;s an
-                    indispensable co-founder.&rdquo;
-                  </p>
-                  <p className="font-label text-xs font-semibold uppercase tracking-wider text-green-400">
-                    Arjun M. — YC W23
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div className="relative">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border-0 border-b border-gray-300 bg-transparent px-0 py-2 text-[15px] text-gray-900 placeholder:text-gray-300 focus:border-gray-900 focus:ring-0"
+              required
+              autoComplete="current-password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+            >
+              <Eye className="h-4 w-4" />
+            </button>
           </div>
-        </section>
+        </div>
 
-        {/* ── Right Panel: Auth Flow ─────────────────────────────── */}
-        <section className="lg:w-1/2 bg-surface-container-lowest p-10 lg:p-16 flex flex-col justify-center">
-          <div className="w-full max-w-md mx-auto">
-            {/* Tabs */}
-            <div className="flex border-b border-outline-variant/30 mb-10">
-              <button className="flex-1 pb-4 font-headline font-semibold text-lg text-primary border-b-2 border-primary transition-colors">
-                Log In
-              </button>
-              <Link
-                href="/sign-up"
-                className="flex-1 pb-4 font-headline font-medium text-lg text-on-surface-variant hover:text-primary transition-colors text-center"
-              >
-                Sign Up
-              </Link>
-            </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="group flex w-full items-center justify-center space-x-2 rounded-md bg-[#111827] px-4 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+        >
+          <span>{loading ? "Signing in..." : "Access Dashboard"}</span>
+          {!loading && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
+        </button>
+      </form>
 
-            <div className="space-y-8">
-              <div className="text-center">
-                <h2 className="font-headline font-bold text-3xl text-on-background mb-2">
-                  Welcome back
-                </h2>
-                <p className="font-body text-on-surface-variant text-sm">
-                  Enter your details to access your dashboard.
-                </p>
-              </div>
-
-              {/* Divider */}
-              <div className="relative flex items-center py-2">
-                <div className="flex-grow border-t border-outline-variant/30" />
-                <span className="flex-shrink-0 mx-4 text-on-surface-variant text-xs font-body uppercase tracking-widest">
-                  Email Login
-                </span>
-                <div className="flex-grow border-t border-outline-variant/30" />
-              </div>
-
-              {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <label
-                    className="block font-label text-sm text-on-surface-variant"
-                    htmlFor="email"
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    className="w-full bg-transparent border-0 border-b border-outline-variant/50 focus:border-primary focus:ring-0 px-0 py-2 font-body text-on-background transition-colors"
-                    id="email"
-                    placeholder="founder@startup.com"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    autoCapitalize="none"
-                    autoComplete="email"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between items-baseline">
-                    <label
-                      className="block font-label text-sm text-on-surface-variant"
-                      htmlFor="password"
-                    >
-                      Password
-                    </label>
-                    <a
-                      className="font-body text-xs text-secondary hover:underline"
-                      href="#"
-                    >
-                      Forgot password?
-                    </a>
-                  </div>
-                  <input
-                    className="w-full bg-transparent border-0 border-b border-outline-variant/50 focus:border-primary focus:ring-0 px-0 py-2 font-body text-on-background transition-colors"
-                    id="password"
-                    placeholder="••••••••"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    autoComplete="current-password"
-                  />
-                </div>
-                <button
-                  className="w-full bg-gradient-to-b from-primary-container to-[#0a1020] text-on-primary font-headline font-semibold py-4 rounded-md shadow-sm hover:opacity-95 transition-opacity flex justify-center items-center space-x-2 mt-8 disabled:opacity-50"
-                  type="submit"
-                  disabled={loading}
-                >
-                  <span>
-                    {loading ? "Signing in..." : "Access Dashboard"}
-                  </span>
-                  {!loading && (
-                    <span className="material-symbols-outlined text-sm">
-                      arrow_forward
-                    </span>
-                  )}
-                </button>
-              </form>
-            </div>
-          </div>
-        </section>
-      </main>
+      <p className="mt-8 text-center text-sm text-gray-600">
+        Don't have an account?{" "}
+        <Link href="/sign-up" className="font-semibold text-[#22c55e] hover:text-green-600 transition-colors">
+          Sign up
+        </Link>
+      </p>
     </div>
   );
 }

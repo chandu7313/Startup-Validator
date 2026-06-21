@@ -25,7 +25,7 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: process.env.FRONTEND_URL ?? 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'http://localhost:3001', process.env.FRONTEND_URL || ''],
     credentials: true,
     methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-razorpay-signature'],
@@ -45,7 +45,7 @@ async function bootstrap() {
 
   // ── Swagger API Documentation ──────────────────────────────────────────
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('StartupSaarthi AI — Backend API')
+    .setTitle('startupIQ — Backend API')
     .setDescription(
       'Multi-agent AI startup validator for Indian founders. ' +
       'Authenticate with a Clerk JWT Bearer token.',
