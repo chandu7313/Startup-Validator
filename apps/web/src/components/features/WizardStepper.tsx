@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import { cn } from "@startupsaarthi/ui";
+import { cn } from "@startupiq/ui";
 
 export interface WizardStepperProps {
   steps: string[];
