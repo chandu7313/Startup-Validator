@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 
 export const metadata = {
-  title: "StartupSaarthi AI - Validate your startup before you build it",
+  title: "startupIQ - Validate your startup before you build it",
   description:
     "Editorial-First Intelligence trained on YC patterns and Indian institutional rigor. Enter your idea, get an actionable viability score.",
 };
@@ -16,12 +16,13 @@ export default function LandingPage() {
       {/* ── TopNavBar ─────────────────────────────────────────────── */}
       <nav className="bg-white/80 backdrop-blur-md w-full sticky top-0 z-50 border-b border-outline-variant/15 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
         <div className="flex justify-between items-center h-16 px-8 max-w-7xl mx-auto">
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4">
+            <img src="/app-logo.png" alt="startupIQ Logo" className="h-8 w-8 object-contain" />
             <Link
               href="/"
               className="text-xl font-extrabold tracking-tighter text-primary-container font-headline"
             >
-              StartupSaarthi AI
+              startupIQ
             </Link>
             <div className="hidden md:flex gap-6 font-headline font-semibold tracking-tight text-on-surface-variant">
               <Link
@@ -428,10 +429,10 @@ export default function LandingPage() {
         <div className="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto">
           <div className="mb-4 md:mb-0">
             <span className="font-headline font-bold text-on-background">
-              StartupSaarthi AI
+              startupIQ
             </span>
             <p className="font-body text-xs uppercase tracking-widest text-on-surface-variant mt-2">
-              © 2024 StartupSaarthi AI. Editorial-First Intelligence.
+              © 2024 startupIQ. Editorial-First Intelligence.
             </p>
           </div>
           <div className="flex gap-6 font-body text-xs uppercase tracking-widest text-on-surface-variant">
