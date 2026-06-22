@@ -1,4 +1,4 @@
-# 🚀 StartupSaarthi AI — Intelligent Startup Validation Platform
+# 🚀 StartupIQ AI — Intelligent Startup Validation Platform
 
 <p align="center">
   <strong>AI-powered multi-agent platform that validates, scores, and generates comprehensive reports for startup ideas — tailored for the Indian ecosystem.</strong>
@@ -41,7 +41,7 @@
 
 ## 🌟 Overview
 
-**StartupSaarthi AI** is a production-grade, full-stack SaaS platform designed to help founders, investors, and incubators validate startup ideas with AI-driven intelligence. Instead of months of manual market research, users describe their idea and receive a comprehensive validation report — complete with market sizing, competitor analysis, financial projections, risk assessment, and investor-ready pitch materials — in under 2 minutes.
+**StartupIQ AI** is a production-grade, full-stack SaaS platform designed to help founders, investors, and incubators validate startup ideas with AI-driven intelligence. Instead of months of manual market research, users describe their idea and receive a comprehensive validation report — complete with market sizing, competitor analysis, financial projections, risk assessment, and investor-ready pitch materials — in under 2 minutes.
 
 The platform is purpose-built for the **Indian startup ecosystem**, with deep localization for DPIIT regulations, UPI-first monetization models, Tier-2/3 market insights, and Hindi language support.
 
@@ -138,7 +138,7 @@ Five specialized AI agents powered by **Anthropic Claude** work in parallel to e
 
 ## 🏗 Architecture
 
-StartupSaarthi follows an **event-driven, multi-agent orchestration** architecture:
+StartupIQ follows an **event-driven, multi-agent orchestration** architecture:
 
 ```
 ┌─────────────────┐     ┌──────────────────────┐     ┌───────────────────┐
@@ -187,7 +187,7 @@ StartupSaarthi follows an **event-driven, multi-agent orchestration** architectu
 ## 📁 Repository Structure
 
 ```text
-StartupSaarthi/
+StartupIQ/
 ├── apps/
 │   ├── api/                          # NestJS Backend
 │   │   ├── Dockerfile
@@ -275,7 +275,7 @@ StartupSaarthi/
 │   │   ├── promtail.yml
 │   │   └── docker-compose.monitoring.yml
 │   ├── nginx/                        # Nginx reverse proxy config
-│   │   └── conf.d/startupsaarthi.conf
+│   │   └── conf.d/startupiq.conf
 │   └── terraform/                    # AWS Infrastructure as Code
 │       ├── main.tf                   # Provider & backend config
 │       ├── vpc.tf                    # VPC, subnets, NAT, IGW
