@@ -24,14 +24,33 @@ const industries = [
   "AgriTech",
   "DeepTech",
   "Climate Tech",
-  "Consumer",
-  "Enterprise AI",
-  "Supply Chain",
+  "Food",
+  "Manufacturing",
+  "Retail",
+  "Export",
+  "Services",
+  "Real Estate",
+  "Logistics",
+  "HR Tech",
+  "PropTech",
+  "LegalTech",
+  "Creator Economy",
   "Other",
 ];
 
 const geographies = ["India", "US", "Europe", "Southeast Asia", "Global"];
 const stages = ["Idea", "MVP", "Pre-Revenue", "Revenue", "Growth"];
+
+const indianStates = [
+  "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
+  "Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
+  "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
+  "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan",
+  "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh",
+  "Uttarakhand", "West Bengal",
+];
+
+const businessTypes = ["Product", "Service", "Manufacturing", "Trading", "Export"];
 
 export default function NewValidationPage() {
   const router = useRouter();
@@ -52,6 +71,8 @@ export default function NewValidationPage() {
     budget: "",
     primarySkill: "",
     focusIndia: false,
+    state: "",
+    businessType: "",
   });
 
   const update = (field: string, value: string | boolean) =>
@@ -73,6 +94,8 @@ export default function NewValidationPage() {
           teamSize: form.teamSize ? parseInt(form.teamSize) : 1,
           budget: form.budget,
           primarySkill: form.primarySkill,
+          state: form.state,
+          businessType: form.businessType,
         },
       });
 
@@ -123,9 +146,9 @@ export default function NewValidationPage() {
       <nav className="bg-[#131b2e] h-screen w-64 fixed left-0 top-0 z-40 flex flex-col p-6 space-y-8 shadow-[4px_0_24px_rgba(0,0,0,0.1)]">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <img src="/app-logo.png" alt="startupIQ Logo" className="h-6 w-6 object-contain" />
+            <img src="/app-logo.png" alt="VentureForge AI Logo" className="h-6 w-6 object-contain" />
             <div className="text-lg font-black text-white uppercase tracking-widest font-headline">
-              startupIQ
+              VentureForge AI
             </div>
           </div>
           <div className="font-headline text-sm font-medium tracking-wide text-slate-400 mt-1">
