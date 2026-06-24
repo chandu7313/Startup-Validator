@@ -80,10 +80,10 @@ importers:
       '@react-pdf/renderer':
         specifier: ^4.5.1
         version: 4.5.1(react@18.3.1)
-      '@startupiq/db':
+      '@ventureforge/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@startupiq/types':
+      '@ventureforge/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@willsoto/nestjs-prometheus':
@@ -144,9 +144,6 @@ importers:
       '@nestjs/cli':
         specifier: ^10.0.0
         version: 10.4.9
-      '@startupiq/config':
-        specifier: workspace:*
-        version: link:../../packages/config
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
@@ -159,6 +156,9 @@ importers:
       '@types/whois-json':
         specifier: ^2.0.4
         version: 2.0.4
+      '@ventureforge/config':
+        specifier: workspace:*
+        version: link:../../packages/config
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -168,15 +168,15 @@ importers:
 
   apps/web:
     dependencies:
-      '@startupiq/types':
-        specifier: workspace:*
-        version: link:../../packages/types
-      '@startupiq/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
       '@tanstack/react-query':
         specifier: ^5.40.0
         version: 5.101.0(react@18.3.1)
+      '@ventureforge/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@ventureforge/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -217,9 +217,6 @@ importers:
       '@playwright/test':
         specifier: ^1.61.0
         version: 1.61.0
-      '@startupiq/config':
-        specifier: workspace:*
-        version: link:../../packages/config
       '@tailwindcss/forms':
         specifier: ^0.5.11
         version: 0.5.11(tailwindcss@3.4.19(yaml@2.9.0))
@@ -229,6 +226,9 @@ importers:
       '@types/react':
         specifier: 18.3.2
         version: 18.3.2
+      '@ventureforge/config':
+        specifier: workspace:*
+        version: link:../../packages/config
       autoprefixer:
         specifier: ^10.5.0
         version: 10.5.0(postcss@8.5.15)
@@ -278,7 +278,7 @@ importers:
 
   packages/types:
     devDependencies:
-      '@startupiq/config':
+      '@ventureforge/config':
         specifier: workspace:*
         version: link:../config
       typescript:
@@ -309,15 +309,15 @@ importers:
         specifier: ^2.3.0
         version: 2.6.1
     devDependencies:
-      '@startupiq/config':
-        specifier: workspace:*
-        version: link:../config
       '@types/react':
         specifier: 18.3.2
         version: 18.3.2
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@18.3.2)
+      '@ventureforge/config':
+        specifier: workspace:*
+        version: link:../config
       typescript:
         specifier: 5.3.3
         version: 5.3.3

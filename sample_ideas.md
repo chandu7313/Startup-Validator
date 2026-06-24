@@ -1,6 +1,6 @@
 # Sample Startup Ideas for Testing
 
-Use these carefully crafted, Indian-context startup ideas to test the `startupIQ` AI validation engine. They are designed to trigger comprehensive responses from the VC, Competitor, Product, and Market agents.
+Use these carefully crafted, Indian-context startup ideas to test the `VentureForge AI` AI validation engine. They are designed to trigger comprehensive responses from the VC, Competitor, Product, and Market agents.
 
 ---
 
