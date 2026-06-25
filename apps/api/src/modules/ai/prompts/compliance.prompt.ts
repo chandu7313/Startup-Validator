@@ -1,70 +1,36 @@
 import { ComplianceAgentInput } from '../ai.types';
-import { INDIA_CONTEXT, HINDI_CONTEXT } from './india-context';
+import { getCountryContext, getCountryCurrency, getLanguageInstruction } from './country-context';
 
-export function getCompliancePrompt(input: ComplianceAgentInput): string {
-  return `You are VentureForge AI's Compliance & Registration specialist — an expert in Indian business compliance, government registrations, tax law, and accounting.
+export function getCompliancePrompt(input: ComplianceAgentInput, searchContext: string = ''): string {
+  const { currency, symbol } = getCountryCurrency(input.country || input.geography);
+  const countryContext = getCountryContext({ country: input.country || input.geography, state: input.state, language: input.language });
+  const langInstruction = getLanguageInstruction(input.language);
 
-${INDIA_CONTEXT}
+  return `You are an expert Chartered Accountant (CA) and Corporate Secretary.
+Your task is to generate a comprehensive, accurate compliance and tax checklist based on real regulations.
 
-## TASK
-Generate a COMPLETE, state-specific and industry-specific compliance checklist for this startup. Include EVERY registration required with cost, timeline, and portal links.
+STARTUP IDEA:
+${input.ideaDescription}
 
-## STARTUP DETAILS
-- **Idea**: ${input.ideaDescription}
-- **Industry**: ${input.industry}
-- **Geography**: ${input.geography}
-${input.state ? `- **State**: ${input.state}` : '- **State**: Pan-India (provide general requirements)'}
-${input.businessType ? `- **Business Type**: ${input.businessType}` : ''}
-${input.businessStructure ? `- **Legal Structure**: ${input.businessStructure}` : ''}
-${input.language === 'hi' ? '\n⚠️ Provide ALL text content in Hindi (Devanagari script).' : ''}
+INDUSTRY: ${input.industry}
+BUSINESS TYPE: ${input.businessType || 'business'}
+STRUCTURE: ${input.businessStructure || 'Not decided'}
+GEOGRAPHY: ${input.geography}
+COUNTRY: ${input.country || input.geography}
+STATE/REGION: ${input.state || 'N/A'}
 
-## INDUSTRY-SPECIFIC EXAMPLES
-- Food: PAN, GST, FSSAI (State/Central), MSME/Udyam, Shop & Establishment, Pollution NOC
-- Manufacturing: Factory License, Pollution Control Board, Labour Registrations, BIS/ISO
-- Export: IEC, AD Code, RCMC
-- Retail: Trade License, Professional Tax, ESIC, PF
-- Tech: DPIIT Startup India, TM Registration, IT Act compliance
+${searchContext}
 
-## REQUIRED OUTPUT
-Return a JSON object with this exact structure:
+${countryContext}
 
-\`\`\`json
-{
-  "registrations": [
-    {
-      "name": "PAN Card (Business)",
-      "authority": "Income Tax Department",
-      "estimatedCost": "Free",
-      "processingTime": "7-15 days",
-      "documentsRequired": ["Identity proof", "Address proof", "Incorporation certificate"],
-      "portalLink": "https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html",
-      "isMandatory": true,
-      "priority": 1
-    }
-  ],
-  "taxStructure": {
-    "incomeTax": { "type": "Corporate Tax", "rate": "25% for turnover < ₹400 Cr", "slabs": [] },
-    "gst": { "required": true, "threshold": "₹40L turnover", "applicableRate": "12%", "hsnSacCode": "2103" },
-    "tds": { "applicable": true, "sections": ["194C — Contractor payments", "194J — Professional fees"] },
-    "advanceTaxCalendar": [
-      { "quarter": "Q1 (Jun 15)", "dueDate": "June 15" },
-      { "quarter": "Q2 (Sep 15)", "dueDate": "September 15" },
-      { "quarter": "Q3 (Dec 15)", "dueDate": "December 15" },
-      { "quarter": "Q4 (Mar 15)", "dueDate": "March 15" }
-    ],
-    "filingDeadlines": [
-      { "filing": "GST Return (GSTR-3B)", "dueDate": "20th of every month", "penalty": "₹50/day" },
-      { "filing": "ITR Filing", "dueDate": "October 31 (with audit)", "penalty": "₹5,000 - ₹10,000" }
-    ]
-  },
-  "accountingSetup": {
-    "recommendedSoftware": [
-      { "name": "Tally Prime", "pricing": "₹18,000/year", "features": ["GST compliant", "Inventory", "Payroll"] }
-    ],
-    "bookkeepingGuide": "Maintain sales register, purchase register, cash book..."
-  }
-}
-\`\`\`
+INSTRUCTIONS:
+1. Extract ALL mandatory and highly recommended registrations from the provided search context. Do not hallucinate laws.
+2. Provide accurate Tax Structure details (Income Tax, Sales Tax/VAT/GST, Payroll Tax) applicable to this geography.
+3. Provide filing deadlines and compliance calendar based on local laws.
+4. Recommend local accounting software and bookkeeping practices.
+5. Provide monetary values in ${currency} (${symbol}).
+6. Return the response strictly as a JSON object matching the requested schema. No markdown fences.
 
-Return ONLY the JSON inside a code block. List ALL applicable registrations ordered by priority. Be specific to the state and industry.`;
+${langInstruction}
+`;
 }
