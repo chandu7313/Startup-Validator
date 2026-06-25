@@ -198,6 +198,11 @@ model Report {
   digitalTwinData     Json?   // Startup Digital Twin simulation
   launchChecklistData Json?   // Step-by-step launch checklist
 
+  // ─── Visualizations & Synthesis ───
+  diagramData         Json?   // Mermaid & ReactFlow diagram configurations
+  chartData           Json?   // ECharts rendering configurations
+  aiRecommendations   Json?   // Top AI recommended actions
+
   // ─── Operational metadata ───
   generationTimeMs    Int?
   tokensUsed          Int?    @default(0)
