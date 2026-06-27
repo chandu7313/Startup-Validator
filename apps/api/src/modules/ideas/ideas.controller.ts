@@ -17,6 +17,8 @@ export class CreateIdeaDto {
   @IsString() @IsOptional() budget?: string;
   @IsString() @IsOptional() primarySkill?: string;
   @IsString() @IsOptional() monetization?: string;
+  @IsString() @IsOptional() state?: string;
+  @IsString() @IsOptional() businessType?: string;
 }
 
 @ApiTags('Ideas')

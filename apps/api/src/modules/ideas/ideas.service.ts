@@ -34,6 +34,8 @@ export class IdeasService {
         teamSize: typeof data.teamSize === 'number' ? data.teamSize : 1,
         budget: data.budget || '< ₹5L',
         primarySkill: data.primarySkill || null,
+        state: data.state || null,
+        businessType: data.businessType || null,
         userId: user.id,
       },
     });
